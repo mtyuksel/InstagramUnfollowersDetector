@@ -40,7 +40,7 @@ namespace InstagramUnfollowers
             var loginRequest = await api.LoginAsync();
             if (loginRequest.Succeeded)
             {
-                Console.WriteLine("Logged başarılı!");
+                Console.WriteLine("Login başarılı!");
                 Console.WriteLine("Yükleniyor, lütfen bekleyiniz.");
                 return api;
             }
@@ -58,13 +58,14 @@ namespace InstagramUnfollowers
 
             HashSet<string> followerUsernameList = new HashSet<string>(followersList.Select(s => s.UserName));
 
-            var results = followingList.Where(m => !followerUsernameList.Contains(m.UserName));
+            var unfollowerList = followingList.Where(m => !followerUsernameList.Contains(m.UserName));
 
-            foreach (var user in results)
+            foreach (var unfollower in unfollowerList)
             {
-                Console.WriteLine(user.UserName);
+                Console.WriteLine(unfollower.UserName);
             }
         }
+
         public static async Task<InstaUserShortList> GetFollowingList(IInstaApi api)
         {
             var following = await api.GetUserFollowingAsync(user.UserName, PaginationParameters.Empty);
