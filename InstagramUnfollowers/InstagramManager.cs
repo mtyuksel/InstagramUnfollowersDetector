@@ -56,9 +56,9 @@ namespace InstagramUnfollowers
             var followersList = await GetFollowersList(api);
             var followingList = await GetFollowingList(api);
 
-            HashSet<string> sentIDs = new HashSet<string>(followersList.Select(s => s.UserName));
+            HashSet<string> followerUsernameList = new HashSet<string>(followersList.Select(s => s.UserName));
 
-            var results = followingList.Where(m => !sentIDs.Contains(m.UserName));
+            var results = followingList.Where(m => !followerUsernameList.Contains(m.UserName));
 
             foreach (var user in results)
             {
